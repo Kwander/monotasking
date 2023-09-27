@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <!-- Title -->
     <TextView
         android:id="@+id/textViewTitle"
@@ -24,13 +23,28 @@
         android:layout_weight="1"
         android:layout_marginTop="8dp"/>
 
-    <!-- Button to add new to-do items -->
-    <Button
-        android:id="@+id/buttonAddTodo"
-        android:layout_width="wrap_content"
+    <!-- Horizontal LinearLayout for TextView and Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New Task"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- TextView -->
+
+        <!-- Button -->
+        <EditText
+            android:id="@+id/Addtodotext"
+            android:layout_width="231dp"
+            android:layout_height="55dp"
+            android:text=""
+            android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/buttonAddTodo"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:text="Add New Task" />
+    </LinearLayout>
 
 </LinearLayout>

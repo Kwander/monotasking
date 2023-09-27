@@ -1,5 +1,6 @@
 package com.example.flashcarddss
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button  // Import the Button class
+import android.widget.EditText
+import com.example.flashcarddss.TodoListAdapter
+
 
 class Task{
     fun onCreate(savedInstanceState: Bundle?) {
@@ -19,10 +23,12 @@ class Task{
     }
 }
 
-class MainActivity : AppCompatActivity() {
-    private val todoList = mutableListOf<String>() // Define and initialize todoList
+class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener {
+    val todoList = mutableListOf<String>() // Define and initialize todoList
     private lateinit var adapter: TodoListAdapter
-
+    private val sharedPreferences by lazy {
+        getSharedPreferences("TodoListPrefs", Context.MODE_PRIVATE)
+    }
 
 
 
@@ -30,17 +36,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize RecyclerView
-        adapter = TodoListAdapter(todoList)
+        // Initialize EditText and Button
+        val buttonAddTodo = findViewById<Button>(R.id.buttonAddTodo)
+        var AddTodoText = findViewById<EditText>(R.id.Addtodotext)
+
+        // Initialize RecyclerView with the OnItemCheckedListener callback
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTodoList)
-        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Button click listeners
-        val buttonAddTodo = findViewById<Button>(R.id.buttonAddTodo)
+        // Load saved todo list data
+        val savedTodoList = sharedPreferences.getStringSet("todoList", HashSet<String>())?.toList()
+        if (!savedTodoList.isNullOrEmpty()) {
+            todoList.addAll(savedTodoList)
+        }
+
+        adapter = TodoListAdapter(this, todoList)
+        recyclerView.adapter = adapter
+
         buttonAddTodo.setOnClickListener {
-            val newTask = "New Task" // You can replace this with user input
+            val newTask = AddTodoText.text.toString()
             addTask(newTask)
+            AddTodoText.text.clear()
+            Log.d("kev", "AddTask Called")
         }
 
 
@@ -48,6 +65,12 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+    override fun onPause() {
+        super.onPause()
+        // Save the todo list data when the app is paused
+        sharedPreferences.edit().putStringSet("todoList", HashSet(todoList)).apply()
+    }
+
 
     fun addTask(task: String) {
         if (task.isNotBlank()) {
@@ -58,7 +81,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onItemChecked(position: Int, isChecked: Boolean) {
+        if (position >= 0 && position < todoList.size) {
+            if (isChecked) {
+                todoList.removeAt(position)
+                adapter.notifyItemRemoved(position)
+                Log.d("kev", "Item Is Checked, Removed")
+            }
+            // Handle logic when item is unchecked if needed
+        }
+    }
 
 //        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 //            val data: Intent? = result.data

@@ -6,11 +6,12 @@ android:layout_height="wrap_content"
 android:orientation="horizontal"
 android:padding="16dp">
 
-<ImageView
-    android:id="@+id/todo_icon"
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    android:src="@drawable/ic_launcher_foreground"/>
+    <CheckBox
+        android:id="@+id/todo_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"/>
+
+
 
 <TextView
     android:id="@+id/todo_text"
