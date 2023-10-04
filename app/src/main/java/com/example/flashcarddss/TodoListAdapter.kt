@@ -7,11 +7,22 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Collections
+
+interface ItemTouchHelperAdapter {
+    fun onItemMove(fromPosition: Int, toPosition: Int)
+}
 
 class TodoListAdapter(
     private val onItemCheckedListener: OnItemCheckedListener,
     private val todoList: MutableList<String> // Add this property
-) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>(), ItemTouchHelperAdapter {
+
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        Collections.swap(todoList, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
+    }
 
     interface OnItemCheckedListener {
 

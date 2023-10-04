@@ -1,20 +1,14 @@
 package com.example.flashcarddss
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button  // Import the Button class
 import android.widget.EditText
-import com.example.flashcarddss.TodoListAdapter
+import androidx.recyclerview.widget.ItemTouchHelper
 
 
 class Task{
@@ -52,6 +46,10 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
         adapter = TodoListAdapter(this, todoList)
         recyclerView.adapter = adapter
+
+        val itemTouchHelperCallback = SimpleItemTouchHelperCallback(adapter)
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         buttonAddTodo.setOnClickListener {
             val newTask = AddTodoText.text.toString()
