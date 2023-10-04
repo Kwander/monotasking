@@ -64,11 +64,16 @@ class TodoListAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskTextView: TextView = itemView.findViewById(R.id.todo_text)
-        val checkBox: CheckBox = itemView.findViewById(R.id.todo_icon) // Corrected ID
+        val checkBox: CheckBox = itemView.findViewById(R.id.todo_icon)
 
-        fun bind(task: String) {
+        fun bind(task: String, isCurrentTask: Boolean) {
             taskTextView.text = task
+            checkBox.isChecked = isCurrentTask
         }
     }
+
+
+
+
 }
 

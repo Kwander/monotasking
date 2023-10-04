@@ -6,16 +6,20 @@
     android:orientation="vertical">
 
     <!-- Title -->
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To-Do List"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
+
 
     <!-- RecyclerView to display to-do items -->
+
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="141dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="To-Do List"
+        android:layout_marginTop="5dp"
+        android:textSize="24sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTodoList"
         android:layout_width="match_parent"
@@ -24,6 +28,7 @@
         android:layout_marginTop="8dp"/>
 
     <!-- Horizontal LinearLayout for TextView and Button -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +38,14 @@
         <!-- TextView -->
 
         <!-- Button -->
+        <ImageView
+            android:id="@+id/presentTasks"
+            android:layout_width="46dp"
+            android:layout_height="38dp"
+            android:src="@drawable/play_icon"
+            android:layout_marginTop="5dp"
+            android:text="" />
+
         <EditText
             android:id="@+id/Addtodotext"
             android:layout_width="231dp"

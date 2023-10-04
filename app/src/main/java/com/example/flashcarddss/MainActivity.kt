@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button  // Import the Button class
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.flashcarddss.TodoListAdapter
 
 
 class Task{
@@ -58,6 +61,11 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             Log.d("kev", "AddTask Called")
         }
 
+        val presentImageButton = findViewById<ImageView>(R.id.presentTasks)
+//
+//        presentImageButton.setOnClickListener {
+//            adapter.showNextTask()
+//        }
 
 
 
