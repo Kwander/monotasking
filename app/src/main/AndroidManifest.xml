@@ -14,7 +14,7 @@
         android:theme="@style/Theme.FlashCarddss"
         tools:targetApi="31">
         <activity
-            android:name=".AddCardActivity"
+            android:name=".SlideshowActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

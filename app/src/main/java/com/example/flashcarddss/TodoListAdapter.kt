@@ -14,7 +14,7 @@ interface ItemTouchHelperAdapter {
 }
 
 class TodoListAdapter(
-    private val onItemCheckedListener: OnItemCheckedListener,
+    val onItemCheckedListener: OnItemCheckedListener,
     private val todoList: MutableList<String> // Add this property
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>(), ItemTouchHelperAdapter {
 
@@ -66,9 +66,8 @@ class TodoListAdapter(
         val taskTextView: TextView = itemView.findViewById(R.id.todo_text)
         val checkBox: CheckBox = itemView.findViewById(R.id.todo_icon)
 
-        fun bind(task: String, isCurrentTask: Boolean) {
+        fun bind(task: String) {
             taskTextView.text = task
-            checkBox.isChecked = isCurrentTask
         }
     }
 

@@ -20,6 +20,11 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp" />
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!-- Other task-related views can be added here if needed -->
 
 </LinearLayout>

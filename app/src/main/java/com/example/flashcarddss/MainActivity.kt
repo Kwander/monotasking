@@ -1,33 +1,42 @@
 package com.example.flashcarddss
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button  // Import the Button class
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.flashcarddss.TodoListAdapter
+import com.google.android.material.snackbar.Snackbar
+import java.io.Serializable
 
 
-class Task{
-    fun onCreate(savedInstanceState: Bundle?) {
-        val stringtask = "hello"
+class SerializableObject(private val onItemCheckedListener: TodoListAdapter.OnItemCheckedListener) : Serializable {
+    fun getOnItemCheckedListener(): TodoListAdapter.OnItemCheckedListener {
+        return onItemCheckedListener
     }
 }
 
+
+
 class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener {
-    val todoList = mutableListOf<String>() // Define and initialize todoList
+    var todoList = mutableListOf<String>() // Define and initialize todoList
     private lateinit var adapter: TodoListAdapter
     private val sharedPreferences by lazy {
         getSharedPreferences("TodoListPrefs", Context.MODE_PRIVATE)
     }
-
-
+    object TodoListAdapterSingleton {
+        var adapter: TodoListAdapter? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +58,7 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
         adapter = TodoListAdapter(this, todoList)
         recyclerView.adapter = adapter
+        TodoListAdapterSingleton.adapter = adapter
 
         val itemTouchHelperCallback = SimpleItemTouchHelperCallback(adapter)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
@@ -61,12 +71,34 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             Log.d("kev", "AddTask Called")
         }
 
-        val presentImageButton = findViewById<ImageView>(R.id.presentTasks)
-//
-//        presentImageButton.setOnClickListener {
-//            adapter.showNextTask()
-//        }
+        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                if (data != null) {
+                    val receivedData = data.getStringArrayListExtra("data")
+                    todoList = receivedData?.toMutableList() ?: mutableListOf()
+                    // Update your view or perform other operations with todoList
+                    val onItemCheckedListener = intent.getSerializableExtra("onItemCheckedListener") as TodoListAdapter.OnItemCheckedListener
+                }
+            }
+        }
 
+        val presentImageButton = findViewById<ImageView>(R.id.presentTasks)
+        presentImageButton.setOnClickListener {
+            // Initialize your dependencies (onItemCheckedListener, todoList, adapter)
+            val serializableObject = intent.getSerializableExtra("onItemCheckedListener") as? SerializableObject
+            val onItemCheckedListener = serializableObject?.getOnItemCheckedListener()
+
+            // Create an Intent and pass the required parameters
+            val intent = Intent(this, SlideshowActivity::class .java).apply {
+                putExtra("todoList", ArrayList(todoList))
+            } // Problem is i can't pass in this
+
+
+            Log.d("kev", "Launching")
+            // Launch SlideshowActivity with the resultLauncher
+            resultLauncher.launch(intent)
+        }
 
 
 
@@ -97,37 +129,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             // Handle logic when item is unchecked if needed
         }
     }
-
-//        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//            val data: Intent? = result.data
-//            if (data != null) { // Check that we have data returned
-//                val string1 = data.getStringExtra("QUESTIONKEY") // 'string1' needs to match the key we used when we put the string in the Intent
-//                val string2 = data.getStringExtra("ANSWERKEY")
-//                // Log the value of the strings for easier debugging
-//                Log.i("MainActivity", "Question: $string1")
-//                Log.i("MainActivity", "Answer: $string2")
-//            } else {
-//                Log.i("MainActivity", "Returned null data from AddCardActivity")
-//            }
-//        }
-
-//        findViewById<View>(R.id.myBtn).setOnClickListener {
-//            val intent = Intent(this, AddCardActivity::class.java)
-//            // Launch EndingActivity with the resultLauncher so we can execute more code
-//            // once we come back here from EndingActivity
-//            resultLauncher.launch(intent)
-//        }
-//
-//        val flashcardQuestion = findViewById<TextView>(R.id.flashcard_question)
-//        val flashcardAnswer = findViewById<TextView>(R.id.flashcard_answer)
-//        flashcardQuestion.setOnClickListener {
-//            flashcardQuestion.visibility = View.GONE
-//            flashcardAnswer.visibility = View.VISIBLE
-//        }
-//        flashcardAnswer.setOnClickListener {
-//            flashcardQuestion.visibility = View.VISIBLE
-//            flashcardAnswer.visibility = View.GONE
-//        }
 
 
 }
