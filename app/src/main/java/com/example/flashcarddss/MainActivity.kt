@@ -34,9 +34,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
     private val sharedPreferences by lazy {
         getSharedPreferences("TodoListPrefs", Context.MODE_PRIVATE)
     }
-    object TodoListAdapterSingleton {
-        var adapter: TodoListAdapter? = null
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +55,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
         adapter = TodoListAdapter(this, todoList)
         recyclerView.adapter = adapter
-        TodoListAdapterSingleton.adapter = adapter
 
         val itemTouchHelperCallback = SimpleItemTouchHelperCallback(adapter)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
@@ -76,29 +72,31 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
                 val data: Intent? = result.data
                 if (data != null) {
                     val receivedData = data.getStringArrayListExtra("data")
-                    todoList = receivedData?.toMutableList() ?: mutableListOf()
+
+                    // Update the visual representation of your RecyclerView
+                    adapter.submitList(receivedData?.toMutableList() ?: mutableListOf())
+
                     // Update your view or perform other operations with todoList
-                    val onItemCheckedListener = intent.getSerializableExtra("onItemCheckedListener") as TodoListAdapter.OnItemCheckedListener
+//                    val onItemCheckedListener = intent.getSerializableExtra("onItemCheckedListener") as TodoListAdapter.OnItemCheckedListener
                 }
             }
         }
 
-        val presentImageButton = findViewById<ImageView>(R.id.presentTasks)
-        presentImageButton.setOnClickListener {
-            // Initialize your dependencies (onItemCheckedListener, todoList, adapter)
-            val serializableObject = intent.getSerializableExtra("onItemCheckedListener") as? SerializableObject
-            val onItemCheckedListener = serializableObject?.getOnItemCheckedListener()
-
-            // Create an Intent and pass the required parameters
-            val intent = Intent(this, SlideshowActivity::class .java).apply {
-                putExtra("todoList", ArrayList(todoList))
-            } // Problem is i can't pass in this
 
 
-            Log.d("kev", "Launching")
-            // Launch SlideshowActivity with the resultLauncher
+        findViewById<View>(R.id.presentTasks).setOnClickListener {
+            val intent = Intent(this, SlideshowActivity::class.java)
+            // Launch EndingActivity with the resultLauncher so we can execute more code
+            // once we come back here from EndingActivity
+            intent.putStringArrayListExtra("todoList", ArrayList(todoList))
+
             resultLauncher.launch(intent)
+//            overridePendingTransition(R.anim.right_in, R.anim.left_in)
         }
+
+
+
+
 
 
 
