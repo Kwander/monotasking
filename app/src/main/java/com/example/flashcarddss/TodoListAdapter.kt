@@ -1,10 +1,12 @@
 package com.example.flashcarddss
 
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Collections
@@ -65,11 +67,12 @@ class TodoListAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val taskTextView: TextView = itemView.findViewById(R.id.todo_text)
+        val taskTextView: EditText = itemView.findViewById(R.id.todo_text)
         val checkBox: CheckBox = itemView.findViewById(R.id.todo_icon)
 
         fun bind(task: String) {
-            taskTextView.text = task
+            val editableTask: Editable = Editable.Factory.getInstance().newEditable(task)
+            taskTextView.text = editableTask
         }
         fun check(){
             checkBox.isChecked = false

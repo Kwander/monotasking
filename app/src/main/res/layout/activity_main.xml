@@ -6,10 +6,6 @@
     android:orientation="vertical">
 
 
-    <!-- Title -->
-
-
-    <!-- RecyclerView to display to-do items -->
 
 
     <TextView
@@ -19,7 +15,10 @@
         android:layout_marginTop="5dp"
         android:text="All To-Dos View"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTodoList"
@@ -28,7 +27,6 @@
         android:layout_weight="1"
         android:layout_marginTop="8dp"/>
 
-    <!-- Horizontal LinearLayout for TextView and Button -->
 
 
     <ImageView
