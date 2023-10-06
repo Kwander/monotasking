@@ -9,7 +9,10 @@ android:padding="16dp">
     <CheckBox
         android:id="@+id/todo_icon"
         android:layout_width="24dp"
-        android:layout_height="24dp"/>
+        android:layout_height="24dp"
+        android:checked="false"
+
+        />
 
 
 

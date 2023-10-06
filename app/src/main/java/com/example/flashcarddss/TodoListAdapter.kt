@@ -48,6 +48,8 @@ class TodoListAdapter(
 
         // Set up the checkbox listener
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
+            //ADD CODE TO UNCHECK HERE CHATGPT THANKS
+            holder.check()
             Log.d("kev", "OnBindViewHolder::Passed Check listener. Now calling onItemCheckedListener")
             onItemCheckedListener.onItemChecked(holder.adapterPosition, isChecked)
         }
@@ -68,6 +70,9 @@ class TodoListAdapter(
 
         fun bind(task: String) {
             taskTextView.text = task
+        }
+        fun check(){
+            checkBox.isChecked = false
         }
     }
 
