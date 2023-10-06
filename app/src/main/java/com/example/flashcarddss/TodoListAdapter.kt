@@ -15,7 +15,7 @@ interface ItemTouchHelperAdapter {
 
 class TodoListAdapter(
     val onItemCheckedListener: OnItemCheckedListener,
-    private val todoList: MutableList<String> // Add this property
+    private val todoList: MutableList<String> // Add this property,
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>(), ItemTouchHelperAdapter {
 
 
