@@ -20,6 +20,6 @@ android:padding="16dp">
     android:layout_marginStart="16dp"
     android:text="Todo Item Text"
     android:textSize="18sp"
-    android:textColor="@android:color/black" />
+    />
 
 </LinearLayout>

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button  // Import the Button class
@@ -36,6 +38,9 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -93,7 +98,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             resultLauncher.launch(intent)
 //            overridePendingTransition(R.anim.right_in, R.anim.left_in)
         }
-
 
 
 

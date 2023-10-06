@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <!-- Title -->
 
 
@@ -51,7 +52,8 @@
             android:layout_width="231dp"
             android:layout_height="55dp"
             android:text=""
-            android:textSize="34sp" />
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonAddTodo"
