@@ -35,7 +35,11 @@ class SlideshowActivity() : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        // Perform your desired actions here before finishing the activity
+        setResultAndFinish(todoList)
 
+    }
 
 
 

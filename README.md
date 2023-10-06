@@ -17,3 +17,4 @@ TodoList application designed to help you stay focused. Presents tasks one at a 
 - fixed Checking issue where it'd remain checked.
 - Full screen view!! Removed Action bar too.
 - Basically made it the way I would like it since I'll use it
+- If you go back Now it will save your progress just as if you pressed return key.
