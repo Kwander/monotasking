@@ -19,6 +19,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.flashcarddss.TodoListAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.Serializable
 
 
@@ -34,8 +36,9 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
     var todoList = mutableListOf<String>() // Define and initialize todoList
     private lateinit var adapter: TodoListAdapter
     private val sharedPreferences by lazy {
-        getSharedPreferences("TodoListPrefs", Context.MODE_PRIVATE)
+        this.getSharedPreferences("TodoListPrefs", Context.MODE_PRIVATE)
     }
+    private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -52,11 +55,7 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTodoList)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Load saved todo list data
-        val savedTodoList = sharedPreferences.getStringSet("todoList", HashSet<String>())?.toList()
-        if (!savedTodoList.isNullOrEmpty()) {
-            todoList.addAll(savedTodoList)
-        }
+
 
         adapter = TodoListAdapter(this, todoList)
         recyclerView.adapter = adapter
@@ -71,6 +70,17 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             AddTodoText.text.clear()
             Log.d("kev", "AddTask Called")
         }
+
+        // Load saved todo list data
+        val savedTodoListJson = sharedPreferences.getString("todoList", null)
+        val type = object : TypeToken<List<String>>() {}.type
+        val savedTodoList = gson.fromJson<List<String>>(savedTodoListJson, type) ?: mutableListOf()
+        if (!savedTodoList.isNullOrEmpty()) {
+            todoList.addAll(savedTodoList)
+        }
+
+
+
 
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -107,9 +117,11 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
     }
     override fun onPause() {
         super.onPause()
-        // Save the todo list data when the app is paused
-        sharedPreferences.edit().putStringSet("todoList", HashSet(todoList)).apply()
+
+        val todoListJson = gson.toJson(todoList)
+        sharedPreferences.edit().putString("todoList", todoListJson).apply()
     }
+
 
 
     fun addTask(task: String) {
