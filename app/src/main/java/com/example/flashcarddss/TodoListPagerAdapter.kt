@@ -15,6 +15,10 @@ class SlideshowAdapter(private val taskList: MutableList<String>) : RecyclerView
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskCheckBox: CheckBox = itemView.findViewById(R.id.checkkbox) // Replace with your CheckBox ID
         val taskEditText: EditText = itemView.findViewById(R.id.taskText) // Replace with your EditText ID
+
+        fun check(){
+            taskCheckBox.isChecked = false
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +33,7 @@ class SlideshowAdapter(private val taskList: MutableList<String>) : RecyclerView
 
         // Set up CheckBox click listener to remove item from the list
         holder.taskCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            holder.check()
             if (isChecked) {
                 taskList.removeAt(position)
                 notifyItemRemoved(position)
