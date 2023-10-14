@@ -5,63 +5,61 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-
-
-    <TextView
-        android:layout_width="268dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:text="All To-Dos View"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewTodoList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="8dp"/>
-
-
-
-    <ImageView
-        android:id="@+id/presentTasks"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="right"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/play_icon"
-        android:layout_marginBottom="55dp"
-         />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_marginBottom="0dp"> <!-- Set the margin bottom to 0dp -->
 
-        <!-- TextView -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="16dp"
+            android:text="All To-Dos View"
+            android:textAlignment="center"
+            android:textSize="24sp" />
 
-        <!-- Button -->
+        <ImageView
+            android:id="@+id/presentTasks"
+            android:layout_width="60dp"
+            android:layout_height="61dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/play_icon" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTodoList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/Addtodotext"
-            android:layout_width="295dp"
+            android:layout_width="0dp"
             android:layout_height="55dp"
+            android:layout_weight="1"
             android:inputType="textMultiLine"
             android:text=""
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonAddTodo"
-            android:layout_width="115dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add New Task" />
+
     </LinearLayout>
 
 </LinearLayout>
