@@ -100,11 +100,11 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
 
         findViewById<View>(R.id.presentTasks).setOnClickListener {
-            val intent = Intent(this, SlideshowActivity::class.java)
             // Launch EndingActivity with the resultLauncher so we can execute more code
             // once we come back here from EndingActivity
+            val intent = Intent(this, SlideshowActivity::class.java)
             intent.putStringArrayListExtra("todoList", ArrayList(todoList))
-
+            resultLauncher.launch(intent)
             resultLauncher.launch(intent)
 //            overridePendingTransition(R.anim.right_in, R.anim.left_in)
         }

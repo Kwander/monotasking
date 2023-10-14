@@ -20,7 +20,7 @@ class SlideshowActivity() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slideshow)
 
-        todoList = intent.getStringArrayListExtra("todoList") ?: ArrayList()
+        todoList =  intent.getStringArrayListExtra("todoList") ?: ArrayList()
 
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         val adapter = SlideshowAdapter(todoList)
