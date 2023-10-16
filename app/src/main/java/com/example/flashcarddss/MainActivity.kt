@@ -126,8 +126,8 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
     fun addTask(task: String) {
         if (task.isNotBlank()) {
-            todoList.add(task)
-            adapter.notifyItemInserted(todoList.size - 1)
+            todoList.add(0 ,task)
+            adapter.notifyItemInserted(0)
             // Optionally, clear the text input field or handle user input
             // Clear the input field: editTextTask.setText("")
         }
