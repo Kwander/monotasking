@@ -105,8 +105,7 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             val intent = Intent(this, SlideshowActivity::class.java)
             intent.putStringArrayListExtra("todoList", ArrayList(todoList))
             resultLauncher.launch(intent)
-            resultLauncher.launch(intent)
-//            overridePendingTransition(R.anim.right_in, R.anim.left_in)
+        //            overridePendingTransition(R.anim.right_in, R.anim.left_in)
         }
 
 

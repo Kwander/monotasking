@@ -27,9 +27,6 @@ class SlideshowActivity() : AppCompatActivity() {
         viewPager.adapter = adapter
 
 
-
-
-
         findViewById<View>(R.id.bottomLeftElement).setOnClickListener {
             setResultAndFinish(todoList)
         }
