@@ -1,4 +1,4 @@
-package com.example.flashcarddss
+package com.example.monotasking
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.flashcarddss
+package com.example.monotasking
 
 import android.text.Editable
 import android.view.LayoutInflater
@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.example.flashcarddss.R  // Replace with your actual package name
+import com.example.monotasking.R  // Replace with your actual package name
 
 class SlideshowAdapter(private val taskList: MutableList<String>) : RecyclerView.Adapter<SlideshowAdapter.ViewHolder>() {
 

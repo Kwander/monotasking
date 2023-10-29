@@ -1,4 +1,4 @@
-package com.example.flashcarddss
+package com.example.monotasking
 
 import android.text.Editable
 import android.util.Log
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Collections
 

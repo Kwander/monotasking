@@ -1,4 +1,4 @@
-package com.example.flashcarddss
+package com.example.monotasking
 
 import android.app.Activity
 import android.content.Context
@@ -13,12 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button  // Import the Button class
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.flashcarddss.TodoListAdapter
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.Serializable
