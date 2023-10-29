@@ -11,25 +11,19 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.Button  // Import the Button class
+import android.widget.Button
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.io.Serializable
 
 
-class SerializableObject(private val onItemCheckedListener: TodoListAdapter.OnItemCheckedListener) : Serializable {
-    fun getOnItemCheckedListener(): TodoListAdapter.OnItemCheckedListener {
-        return onItemCheckedListener
-    }
-}
 
 
 
 class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener {
-    var todoList = mutableListOf<String>() // Define and initialize todoList
+    var todoList = mutableListOf<String>()
     private lateinit var adapter: TodoListAdapter
     private val sharedPreferences by lazy {
         this.getSharedPreferences("TodoListPrefs", Context.MODE_PRIVATE)
@@ -43,11 +37,8 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize EditText and Button
         val buttonAddTodo = findViewById<Button>(R.id.buttonAddTodo)
         var AddTodoText = findViewById<EditText>(R.id.Addtodotext)
-
-        // Initialize RecyclerView with the OnItemCheckedListener callback
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTodoList)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -67,7 +58,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             Log.d("kev", "AddTask Called")
         }
 
-        // Load saved todo list data
         val savedTodoListJson = sharedPreferences.getString("todoList", null)
         val type = object : TypeToken<List<String>>() {}.type
         val savedTodoList = gson.fromJson<List<String>>(savedTodoListJson, type) ?: mutableListOf()
@@ -84,11 +74,8 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
                 if (data != null) {
                     val receivedData = data.getStringArrayListExtra("data")
 
-                    // Update the visual representation of your RecyclerView
                     adapter.submitList(receivedData?.toMutableList() ?: mutableListOf())
 
-                    // Update your view or perform other operations with todoList
-//                    val onItemCheckedListener = intent.getSerializableExtra("onItemCheckedListener") as TodoListAdapter.OnItemCheckedListener
                 }
             }
         }
@@ -96,12 +83,9 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
 
         findViewById<View>(R.id.presentTasks).setOnClickListener {
-            // Launch EndingActivity with the resultLauncher so we can execute more code
-            // once we come back here from EndingActivity
             val intent = Intent(this, SlideshowActivity::class.java)
             intent.putStringArrayListExtra("todoList", ArrayList(todoList))
             resultLauncher.launch(intent)
-        //            overridePendingTransition(R.anim.right_in, R.anim.left_in)
         }
 
 
@@ -123,8 +107,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
         if (task.isNotBlank()) {
             todoList.add(0 ,task)
             adapter.notifyItemInserted(0)
-            // Optionally, clear the text input field or handle user input
-            // Clear the input field: editTextTask.setText("")
         }
     }
 
@@ -135,7 +117,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
                 adapter.notifyItemRemoved(position)
                 Log.d("kev", "Item Is Checked, Removed")
             }
-            // Handle logic when item is unchecked if needed
         }
     }
 

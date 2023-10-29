@@ -17,8 +17,7 @@ import org.junit.Assert.*
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.flashcarddss", appContext.packageName)
+        assertEquals("com.example.monotasking", appContext.packageName)
     }
 }

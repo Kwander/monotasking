@@ -27,7 +27,7 @@ class SimpleItemTouchHelperCallback(private val adapter: TodoListAdapter) : Item
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        // Handle swipe actions if needed
+        // nothing here yet
     }
 }
 

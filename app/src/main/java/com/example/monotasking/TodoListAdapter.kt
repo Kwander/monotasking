@@ -16,7 +16,7 @@ interface ItemTouchHelperAdapter {
 
 class TodoListAdapter(
     val onItemCheckedListener: OnItemCheckedListener,
-    private val todoList: MutableList<String> // Add this property,
+    private val todoList: MutableList<String>
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>(), ItemTouchHelperAdapter {
 
 
@@ -47,7 +47,6 @@ class TodoListAdapter(
         Log.d("kev","OnBindViewHolder")
         holder.bind(task)
 
-        // Set up the checkbox listener
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             holder.check()
             Log.d("kev", "OnBindViewHolder::Passed Check listener. Now calling onItemCheckedListener")
