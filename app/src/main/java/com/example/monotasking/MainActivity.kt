@@ -1,11 +1,14 @@
 package com.example.monotasking
 
+import AddSetActivity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.PopupWindow
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.gson.Gson
@@ -29,6 +33,7 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
         this.getSharedPreferences("TodoListPrefs", Context.MODE_PRIVATE)
     }
     private val gson = Gson()
+    var setlist = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -53,7 +58,7 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
         buttonAddTodo.setOnClickListener {
             val newTask = AddTodoText.text.toString()
-            addTask(newTask)
+            adapter.addTask(newTask)
             AddTodoText.text.clear()
             Log.d("kev", "AddTask Called")
         }
@@ -90,10 +95,23 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
 
 
+        val buttonAddSet = findViewById<Button>(R.id.buttonAddSet)
+        buttonAddSet.setOnClickListener {
+            val popup = AddSetActivity(this, adapter)
+            popup.showAtLocation(it, Gravity.CENTER, 0, 0)
+
+            popup.setOnDismissListener {
+                // Handle the back button press event (when the popup is dismissed)
+                popup.Dismiss()
+            }
+        }
 
 
 
     }
+
+
+
     override fun onPause() {
         super.onPause()
 
@@ -103,12 +121,6 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
 
 
 
-    fun addTask(task: String) {
-        if (task.isNotBlank()) {
-            todoList.add(0 ,task)
-            adapter.notifyItemInserted(0)
-        }
-    }
 
     override fun onItemChecked(position: Int, isChecked: Boolean) {
         if (position >= 0 && position < todoList.size) {

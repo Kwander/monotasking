@@ -25,7 +25,23 @@ class TodoListAdapter(
         notifyItemMoved(fromPosition, toPosition)
     }
 
+    fun addTask(task: String) {
+        if (task.isNotBlank()) {
+            todoList.add(0 ,task)
+            notifyItemInserted(0)
+        }
+    }
+
+    fun addTaskNormally(task: String) {
+        if (task.isNotBlank()) {
+            todoList.add(task)
+            notifyItemInserted(todoList.size - 1) // Notify the adapter about the inserted item at the last position
+        }
+    }
+
+
     interface OnItemCheckedListener {
+
 
         fun onItemChecked(position: Int, isChecked: Boolean)
     }
@@ -41,6 +57,14 @@ class TodoListAdapter(
         todoList.addAll(newList)
         notifyDataSetChanged()
     }
+
+    fun addTasksFromOtherList(otherList: List<String>) {
+        if (otherList.isNotEmpty()) {
+            todoList.addAll(otherList)
+            notifyItemRangeInserted(todoList.size - otherList.size, otherList.size)
+        }
+    }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = todoList[position]
@@ -61,6 +85,9 @@ class TodoListAdapter(
 
     override fun getItemCount(): Int {
         return todoList.size
+    }
+    fun getTodoList(): MutableList<String> {
+        return todoList
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
