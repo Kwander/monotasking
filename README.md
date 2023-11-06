@@ -18,3 +18,7 @@ TodoList application designed to help you stay focused. Presents tasks one at a 
 - Full screen view!! Removed Action bar too.
 - Basically made it the way I would like it since I'll use it
 - If you go back Now it will save your progress just as if you pressed return key.
+
+###update 1.2
+- You may now Add Sets of tasks (popup)
+- Enter key now adds a task

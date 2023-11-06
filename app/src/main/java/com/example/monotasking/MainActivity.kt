@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -21,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import android.view.inputmethod.EditorInfo
 
 
 
@@ -71,6 +74,20 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
         }
 
 
+        AddTodoText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // Call your function here
+                Log.d("kev", "Enter pressed")
+                val newTask = AddTodoText.text.toString()
+                adapter.addTask(newTask)
+                AddTodoText.text.clear()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
+
+
 
 
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -106,6 +123,26 @@ class MainActivity : AppCompatActivity(), TodoListAdapter.OnItemCheckedListener 
             }
         }
 
+        AddTodoText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Not used
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Not used
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.isNotEmpty() && s.toString().endsWith("\n")) {
+                    // Remove the newline character and call your function
+                    s.replace(s.length - 1, s.length, "")
+                    Log.d("kev", "Enter pressed")
+                    val newTask = AddTodoText.text.toString()
+                    adapter.addTask(newTask)
+                    AddTodoText.text.clear()
+                }
+            }
+        })
 
 
     }
