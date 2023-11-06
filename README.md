@@ -1,6 +1,6 @@
 # monotasking
-TodoList application designed to help you stay focused. Presents tasks one at a time, like a Robot!
-
+TodoList application designed that helps minimize distractions by presenting tasks one at a time. 
+small preview:
 ![Gif text](https://im.ezgif.com/tmp/ezgif-1-7deb01ea18.gif)
 
 
