@@ -8,7 +8,7 @@ small preview:
 
 
 
-###Update 1.0
+### Update 1.0
 - Can now drag to rearrange tasks
 - Can view tasks in presenter mode and complete them(whole point of the app)
 
