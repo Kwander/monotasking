@@ -1,5 +1,6 @@
 package com.example.monotasking
 
+import android.content.res.Resources
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,16 @@ class SlideshowAdapter(private val taskList: MutableList<String>) : RecyclerView
         fun check(){
             taskCheckBox.isChecked = false
         }
+
+        fun bind(todo: String) {
+            val screenHeight = Resources.getSystem().displayMetrics.heightPixels
+            val textSize = screenHeight * 0.05f // Adjust the factor as needed
+
+            taskEditText.setText(todo)
+            taskEditText.textSize = textSize
+        }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,6 +39,7 @@ class SlideshowAdapter(private val taskList: MutableList<String>) : RecyclerView
         val task = taskList[position]
         val editableTask: Editable = Editable.Factory.getInstance().newEditable(task)
         holder.taskEditText.text = editableTask
+        holder.bind(task)
 
         holder.taskCheckBox.setOnCheckedChangeListener { _, isChecked ->
             holder.check()
