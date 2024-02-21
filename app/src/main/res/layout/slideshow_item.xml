@@ -21,7 +21,6 @@
         android:fontFamily="serif"
         android:padding="16dp"
         android:text="DEFAULT TEXT"
-        android:textColor="#000000"
         android:textSize="44sp" />
 
 <!--    <CheckBox-->
