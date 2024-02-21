@@ -32,7 +32,7 @@ class SlideshowAdapter(private val taskList: MutableList<String>) : RecyclerView
                 todoLength < 10 -> screenHeight * 0.07f
                 todoLength < 20 -> screenHeight * 0.043f
                 todoLength < 30 -> screenHeight * 0.035f
-                todoLength < 40 -> screenHeight * 0.03f
+                todoLength < 50 -> screenHeight * 0.03f
                 else -> screenHeight * 0.025f
             }
 
