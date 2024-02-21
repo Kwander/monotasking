@@ -1,13 +1,16 @@
 # monotasking
 TodoList application designed that helps minimize distractions by presenting tasks one at a time. 
 small preview:
+
+
 ![Gif text](https://im.ezgif.com/tmp/ezgif-1-7deb01ea18.gif)
 
 
 
 ### update 1.3
-- presenter mode now makes text as big as possible
-- 
+- presenter mode updates
+  - now makes text as big as possible
+  - can double tap to mark as done
 
 ### update 1.2
 - You may now Add Sets of tasks (popup)
